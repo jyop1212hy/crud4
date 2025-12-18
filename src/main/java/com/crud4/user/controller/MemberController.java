@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/member")
+@RequestMapping("/members")
 public class MemberController {
 
     private final MemberService memberService;
@@ -23,8 +23,8 @@ public class MemberController {
     /**
      * 회원가입
      */
-    @PostMapping("/members")
-    public ResponseEntity<ApiResponse<CreateMemberResponse>> memberCreate(CreateMemberRequest request) {
+    @PostMapping("/member")
+    public ResponseEntity<ApiResponse<CreateMemberResponse>> memberCreate(@RequestBody CreateMemberRequest request) {
 
         CreateMemberResponse createMember = memberService.create(request);
         ApiResponse<CreateMemberResponse> apiResponse = new ApiResponse<>("created", 200, createMember);
@@ -36,7 +36,7 @@ public class MemberController {
     /**
      * 단건 조회
      */
-    @GetMapping("/members/{memberId}")
+    @GetMapping("/member/{memberId}")
     public ResponseEntity<ApiResponse<FindSingleMemberResponse>> findSingleMember(@PathVariable Long memberId) {
         FindSingleMemberResponse findMember = memberService.findSingle(memberId);
         ApiResponse<FindSingleMemberResponse> apiResponse = new ApiResponse<>("Success", 200, findMember);
@@ -48,7 +48,7 @@ public class MemberController {
     /**
      * 다건 조회
      */
-    @GetMapping("/members")
+    @GetMapping("/member")
     public ResponseEntity<ApiResponse<FindAllMemberResponse>> findAllMember() {
         FindAllMemberResponse findAllMemberList = memberService.findAll();
         ApiResponse<FindAllMemberResponse> apiResponse = new ApiResponse<>("Success", 200, findAllMemberList);
@@ -60,7 +60,7 @@ public class MemberController {
     /**
      * 수정
      */
-    @PatchMapping("/members/{memberId}")
+    @PatchMapping("/member/{memberId}")
     public ResponseEntity<ApiResponse<UpdateMemberResponse>> UpdateResponse(@PathVariable Long memberId, @RequestBody UpdateRequest request) {
         UpdateMemberResponse updateMember = memberService.update(memberId, request);
         ApiResponse<UpdateMemberResponse> apiResponse = new ApiResponse<>("Success", 200, updateMember);
@@ -72,7 +72,7 @@ public class MemberController {
     /**
      * 삭제
      */
-    @DeleteMapping("/members/{memberId}")
+    @DeleteMapping("/member/{memberId}")
     public ResponseEntity<ApiResponse<DeleteMemberResponse>> DeleteResponse(@PathVariable Long memberId) {
         DeleteMemberResponse updateMember = memberService.delete(memberId);
         ApiResponse<DeleteMemberResponse> apiResponse = new ApiResponse<>("Success", 200, updateMember);

@@ -1,4 +1,4 @@
-package com.crud4.comment.controller;
+package com.crud4.comment.dto.requset;
 
 public class UpdateCommentRequest {
 

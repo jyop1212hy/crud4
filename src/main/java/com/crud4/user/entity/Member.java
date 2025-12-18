@@ -13,20 +13,14 @@ public class Member extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "email", length = 60, nullable = false)
+    @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "name", length = 60, nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(length = 50, nullable = false)
     private String password;
-
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
-    @Column(name = "updated_at")
-    public LocalDateTime updatedAt;
 
 
     //JPA용 기본 생성자
@@ -40,15 +34,12 @@ public class Member extends BaseTimeEntity {
 
     //업데이트용
     public void update(String email, String name) {
-        this.email = email;
-        this.name = name;
+        if(email != null){this.email = email;}
+        if(name != null){this.name = name;}
     }
 
     public Long getId() {return id;}
     public String getEmail() {return email;}
     public String getName() {return name;}
     public String getPassword() {return password;}
-    public LocalDateTime getCreatedAt() {return createdAt;}
-    public LocalDateTime getUpdatedAt() {return updatedAt;}
-
 }

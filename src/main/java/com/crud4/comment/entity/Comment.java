@@ -3,6 +3,8 @@ package com.crud4.comment.entity;
 import com.crud4.common.BaseTimeEntity;
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "comments")
 public class Comment extends BaseTimeEntity {
@@ -17,13 +19,13 @@ public class Comment extends BaseTimeEntity {
     @Column(name = "comment", length = 60, nullable = false)
     public String comment;
 
+    //JPA용 기본 생성자
+    protected Comment() {}
+
     public Comment(String title, String comment) {
         this.title = title;
         this.comment = comment;
     }
-
-    //JPA용 기본 생성자
-    public Comment(){}
 
     //업데이트용
     public void update(String title, String comment) {

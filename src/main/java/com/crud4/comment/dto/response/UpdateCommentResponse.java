@@ -1,4 +1,4 @@
-package com.crud4.comment.service;
+package com.crud4.comment.dto.response;
 
 import com.crud4.comment.entity.Comment;
 
@@ -33,11 +33,9 @@ public class UpdateCommentResponse {
     public Long getId() {return id;}
     public String getTitle() {return title;}
     public String getComment() {return comment;}
-
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
-
     public LocalDateTime getModifiedAt() {
         return modifiedAt;
     }

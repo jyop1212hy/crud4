@@ -1,6 +1,4 @@
-package com.crud4.comment.dto;
-
-import java.time.LocalDateTime;
+package com.crud4.comment.dto.requset;
 
 public class CommentRequest {
 

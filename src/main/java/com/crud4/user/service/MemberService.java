@@ -34,7 +34,8 @@ public class MemberService {
     public CreateMemberResponse create(CreateMemberRequest request) {
 
         //엔터티 등록
-        Member member = new Member(request.getEmail(), request.getName(), request.getPassword());
+        Member member = new Member(
+                request.getEmail(), request.getName(), request.getPassword());
 
         //데이터베이스 저장
         Member savedUser = memberRepository.save(member);
@@ -44,7 +45,7 @@ public class MemberService {
         String savedUserEmail = savedUser.getEmail();
         String savedUserName = savedUser.getName();
         LocalDateTime createdAt = savedUser.getCreatedAt();
-        LocalDateTime updatedAt = savedUser.getUpdatedAt();
+        LocalDateTime updatedAt = savedUser.getModifiedAt();
 
         //DTO 담기
         CreateMemberResponse response = new CreateMemberResponse(savedUserId, savedUserEmail, savedUserName, createdAt, updatedAt);
@@ -77,19 +78,22 @@ public class MemberService {
     @Transactional
     public FindAllMemberResponse findAll() {
 
-        Member member = memberRepository.findAllByDeletedAtIsNull();
-
-        //데이터 추출
-        Long findId = member.getId();
-        String findEmail = member.getEmail();
-        String findName = member.getName();
-        LocalDateTime createdAt = member.getCreatedAt();
-        LocalDateTime updatedAt = member.getUpdatedAt();
+        List<Member> members = memberRepository.findAllByDeletedAtIsNull();
 
         //DTO 담기
-        MemberDto memberDto = new MemberDto(findId, findEmail, findName, createdAt, updatedAt);
         List<MemberDto> listResponse = new ArrayList<>();
-        listResponse.add(memberDto);
+        for (int i = 0; i < members.size(); i++) {
+            Member member = members.get(i);
+
+            Long findId = member.getId();
+            String findEmail = member.getEmail();
+            String findName = member.getName();
+            LocalDateTime createdAt = member.getCreatedAt();
+            LocalDateTime updatedAt = member.getModifiedAt();
+
+            MemberDto memberDto = new MemberDto(findId, findEmail, findName, createdAt, updatedAt);
+            listResponse.add(memberDto);
+        }
         FindAllMemberResponse response = new FindAllMemberResponse(listResponse);
         return response;
     }
@@ -117,7 +121,7 @@ public class MemberService {
         String savedUserEmail = member.getEmail();
         String savedUserName = member.getName();
         LocalDateTime createdAt = member.getCreatedAt();
-        LocalDateTime updatedAt = member.getUpdatedAt();
+        LocalDateTime updatedAt = member.getModifiedAt();
 
         //DTO 담기
         UpdateMemberResponse response = new UpdateMemberResponse(savedUserId, savedUserEmail, savedUserName, createdAt, updatedAt);
@@ -130,7 +134,8 @@ public class MemberService {
      */
     @Transactional
     public DeleteMemberResponse delete(Long memberId) {
-        Member member = memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("아이디가 없습니다."));
+        Member member = memberRepository.findByDeletedAtIsNull(memberId);
+//                .orElseThrow(() -> new IllegalArgumentException("아이디가 없습니다."));
 
         //데이터베이스 저장
         memberRepository.delete(member);

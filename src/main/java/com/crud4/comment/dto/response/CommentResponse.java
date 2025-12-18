@@ -1,4 +1,4 @@
-package com.crud4.comment.dto;
+package com.crud4.comment.dto.response;
 
 
 import com.crud4.comment.entity.Comment;

@@ -1,19 +1,24 @@
 package com.crud4.comment.service;
 
-import com.crud4.comment.controller.UpdateCommentRequest;
-import com.crud4.comment.dto.FindSingleCommentResponse;
+import com.crud4.comment.dto.response.CommentAllResponse;
+import com.crud4.comment.dto.requset.UpdateCommentRequest;
+import com.crud4.comment.dto.response.FindSingleCommentResponse;
+import com.crud4.comment.dto.response.UpdateCommentResponse;
 import com.crud4.comment.entity.Comment;
 import com.crud4.comment.repository.CommentRepository;
-import com.crud4.comment.dto.CommentRequest;
-import com.crud4.comment.dto.CommentResponse;
+import com.crud4.comment.dto.requset.CommentRequest;
+import com.crud4.comment.dto.response.CommentResponse;
 
 import com.crud4.user.service.DeleteCommentResponse;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,7 +36,7 @@ public class CommentService {
      * 댓글생성
      */
     @Transactional
-    public CommentResponse create(CommentRequest request) {
+    public CommentResponse commentCreate(CommentRequest request) {
         //게시글 PK가 존재하는지 데이터 베이스 검증만하기
 
         //request 입력값 추출
@@ -75,30 +80,43 @@ public class CommentService {
      * 다건 조회
      */
     @Transactional
-    public Page<CommentDto> findAllComment(Pageable pageable) {
+    public Page<CommentAllResponse> findAllComment(int page, int size) {
 
-        Page<Comment> commentsPage = commentRepository.findAllByDeletedAtIsNull(pageable);
-        return commentsPage.map(comment -> new CommentDto(
-                comment.getId(),
-                comment.getTitle(),
-                comment.getComment(),
-                comment.getCreatedAt(),
-                comment.getModifiedAt()
-        ));
+        Pageable pageable = PageRequest.of(page, size);
+
+        Page<Comment> commentPage = commentRepository.findAllByDeletedAtIsNull(pageable);
+
+        List<Comment> comments = commentPage.getContent();
+        List<CommentAllResponse> getComment = new ArrayList<>();
+
+        for (int i = 0; i < comments.size(); i++) {
+            Comment comment = comments.get(i);
+
+            CommentAllResponse commentDto = new CommentAllResponse(
+                    comment.getId(),
+                    comment.getTitle(),
+                    comment.getComment(),
+                    comment.getCreatedAt(),
+                    comment.getModifiedAt());
+            getComment.add(commentDto);
+        }
+        PageImpl<CommentAllResponse> commentDtoPage = new PageImpl<>(getComment, pageable, commentPage.getTotalElements());
+
+        return commentDtoPage;
     }
 
 
     /**
-     * 댓글 수저
+     * 댓글 수정
      */
     @Transactional
-    public UpdateCommentResponse update(Long commentId, UpdateCommentRequest request) {
+    public UpdateCommentResponse UpdateCommentResponse(Long commentId, UpdateCommentRequest request) {
 
         //아이디 확인
         Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new IllegalArgumentException("수정할 댓글이 없습니다."));
 
         //수정할 데이터를 엔터티에 등록
-        comment.update(comment.getTitle(), comment.getComment());
+        comment.update(request.getTitle(), request.getComment());
 
         //DTO에 담기
         return UpdateCommentResponse.from(comment);
