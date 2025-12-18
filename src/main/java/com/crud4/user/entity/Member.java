@@ -1,12 +1,13 @@
-package com.crud4.entity;
+package com.crud4.user.entity;
 
+import com.crud4.common.BaseTimeEntity;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "members")
-public class Member {
+public class Member extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,8 +28,6 @@ public class Member {
     @Column(name = "updated_at")
     public LocalDateTime updatedAt;
 
-    @Column(name = "is_deleted")
-    private boolean isDeleted = false;
 
     //JPA용 기본 생성자
     public Member() {}
@@ -51,6 +50,5 @@ public class Member {
     public String getPassword() {return password;}
     public LocalDateTime getCreatedAt() {return createdAt;}
     public LocalDateTime getUpdatedAt() {return updatedAt;}
-    public boolean isDeleted() {return isDeleted;}
 
 }

@@ -1,12 +1,12 @@
-package com.crud4.dto;
+package com.crud4.user.dto.request;
 
-public class CreateRequest {
+public class CreateMemberRequest {
 
     private String email;
     private String name;
     private String password;
 
-    public CreateRequest(String email, String name, String password) {
+    public CreateMemberRequest(String email, String name, String password) {
         this.email = email;
         this.name = name;
         this.password = password;

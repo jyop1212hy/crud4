@@ -1,4 +1,4 @@
-package com.crud4.dto;
+package com.crud4.common.apiResponse;
 
 public class ApiResponse<T> {
 

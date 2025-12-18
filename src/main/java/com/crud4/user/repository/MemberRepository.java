@@ -1,8 +1,9 @@
-package com.crud4.repository;
+package com.crud4.user.repository;
 
-import com.crud4.entity.Member;
+import com.crud4.user.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
-    Member findByDeletedFalse();
+
+    Member findAllByDeletedAtIsNull();
 }

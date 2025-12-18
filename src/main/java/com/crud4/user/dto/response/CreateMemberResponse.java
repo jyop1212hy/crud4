@@ -1,8 +1,8 @@
-package com.crud4.dto;
+package com.crud4.user.dto.response;
 
 import java.time.LocalDateTime;
 
-public class CreateResponse {
+public class CreateMemberResponse {
 
     private final Long id;
     private final String email;
@@ -10,7 +10,7 @@ public class CreateResponse {
     private final LocalDateTime createdAt;
     private final LocalDateTime updatedAt;
 
-    public CreateResponse(Long id, String email, String name, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public CreateMemberResponse(Long id, String email, String name, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.email = email;
         this.name = name;

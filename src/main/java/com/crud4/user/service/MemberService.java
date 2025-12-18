@@ -1,16 +1,16 @@
-package com.crud4.service;
+package com.crud4.user.service;
 
-import com.crud4.dto.DeleteResponse;
-import com.crud4.dto.UpdateRequest;
-import com.crud4.dto.UpdateResponse;
-import com.crud4.dto.FindAllResponse;
-import com.crud4.dto.FindSingleResponse;
-import com.crud4.dto.CreateRequest;
-import com.crud4.dto.CreateResponse;
+import com.crud4.user.dto.response.DeleteMemberResponse;
+import com.crud4.user.dto.request.UpdateRequest;
+import com.crud4.user.dto.response.UpdateMemberResponse;
+import com.crud4.user.dto.response.FindAllMemberResponse;
+import com.crud4.user.dto.response.FindSingleMemberResponse;
+import com.crud4.user.dto.request.CreateMemberRequest;
+import com.crud4.user.dto.response.CreateMemberResponse;
 
-import com.crud4.dto.MemberDto;
-import com.crud4.entity.Member;
-import com.crud4.repository.MemberRepository;
+import com.crud4.user.dto.MemberDto;
+import com.crud4.user.entity.Member;
+import com.crud4.user.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +31,7 @@ public class MemberService {
      * 회원가입
      */
     @Transactional
-    public CreateResponse create(CreateRequest request) {
+    public CreateMemberResponse create(CreateMemberRequest request) {
 
         //엔터티 등록
         Member member = new Member(request.getEmail(), request.getName(), request.getPassword());
@@ -47,7 +47,7 @@ public class MemberService {
         LocalDateTime updatedAt = savedUser.getUpdatedAt();
 
         //DTO 담기
-        CreateResponse response = new CreateResponse(savedUserId, savedUserEmail, savedUserName, createdAt, updatedAt);
+        CreateMemberResponse response = new CreateMemberResponse(savedUserId, savedUserEmail, savedUserName, createdAt, updatedAt);
         return response;
     }
 
@@ -55,7 +55,7 @@ public class MemberService {
      * 단건 조회
      */
     @Transactional
-    public FindSingleResponse findSingle(Long memberId) {
+    public FindSingleMemberResponse findSingle(Long memberId) {
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("아이디가 없습니다."));
 
         //데이터 추출
@@ -65,7 +65,7 @@ public class MemberService {
         LocalDateTime createdAt = member.getCreatedAt();
 
         //DTO 담기
-        FindSingleResponse response = new FindSingleResponse(findId, findEmail, findName, createdAt);
+        FindSingleMemberResponse response = new FindSingleMemberResponse(findId, findEmail, findName, createdAt);
 
         return response;
     }
@@ -75,8 +75,9 @@ public class MemberService {
      * 다건 조회
      */
     @Transactional
-    public FindAllResponse findAll() {
-        Member member = memberRepository.findByDeletedFalse();
+    public FindAllMemberResponse findAll() {
+
+        Member member = memberRepository.findAllByDeletedAtIsNull();
 
         //데이터 추출
         Long findId = member.getId();
@@ -89,7 +90,7 @@ public class MemberService {
         MemberDto memberDto = new MemberDto(findId, findEmail, findName, createdAt, updatedAt);
         List<MemberDto> listResponse = new ArrayList<>();
         listResponse.add(memberDto);
-        FindAllResponse response = new FindAllResponse(listResponse);
+        FindAllMemberResponse response = new FindAllMemberResponse(listResponse);
         return response;
     }
 
@@ -98,7 +99,7 @@ public class MemberService {
      * 수정
      */
     @Transactional
-    public UpdateResponse update(Long memberId, UpdateRequest request) {
+    public UpdateMemberResponse update(Long memberId, UpdateRequest request) {
 
         //데이터베이스 ID조회
         Member member = memberRepository.findById(memberId)
@@ -119,7 +120,7 @@ public class MemberService {
         LocalDateTime updatedAt = member.getUpdatedAt();
 
         //DTO 담기
-        UpdateResponse response = new UpdateResponse(savedUserId, savedUserEmail, savedUserName, createdAt, updatedAt);
+        UpdateMemberResponse response = new UpdateMemberResponse(savedUserId, savedUserEmail, savedUserName, createdAt, updatedAt);
         return response;
     }
 
@@ -128,7 +129,7 @@ public class MemberService {
      * 삭제
      */
     @Transactional
-    public DeleteResponse delete(Long memberId) {
+    public DeleteMemberResponse delete(Long memberId) {
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("아이디가 없습니다."));
 
         //데이터베이스 저장
@@ -138,7 +139,7 @@ public class MemberService {
         Long savedUserId = member.getId();
 
         //DTO 담기
-        DeleteResponse response = new DeleteResponse(savedUserId);
+        DeleteMemberResponse response = new DeleteMemberResponse(savedUserId);
         return response;
     }
 

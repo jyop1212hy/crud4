@@ -1,4 +1,4 @@
-package com.crud4.dto;
+package com.crud4.user.dto.request;
 
 public class UpdateRequest {
 
