@@ -5,6 +5,7 @@ import com.crud4.user.dto.request.CreateMemberRequest;
 import com.crud4.user.dto.request.UpdateRequest;
 import com.crud4.user.dto.response.*;
 import com.crud4.user.service.MemberService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -40,7 +41,7 @@ public class MemberController {
     public ResponseEntity<ApiResponse<FindSingleMemberResponse>> findSingleMember(@PathVariable Long memberId) {
         FindSingleMemberResponse findMember = memberService.findSingle(memberId);
         ApiResponse<FindSingleMemberResponse> apiResponse = new ApiResponse<>("Success", 200, findMember);
-        ResponseEntity<ApiResponse<FindSingleMemberResponse>> response = ResponseEntity.ok(apiResponse);
+        ResponseEntity<ApiResponse<FindSingleMemberResponse>> response = new ResponseEntity<>(apiResponse, HttpStatus.OK);
         return response;
     }
 
@@ -52,7 +53,7 @@ public class MemberController {
     public ResponseEntity<ApiResponse<FindAllMemberResponse>> findAllMember() {
         FindAllMemberResponse findAllMemberList = memberService.findAll();
         ApiResponse<FindAllMemberResponse> apiResponse = new ApiResponse<>("Success", 200, findAllMemberList);
-        ResponseEntity<ApiResponse<FindAllMemberResponse>> response = ResponseEntity.ok(apiResponse);
+        ResponseEntity<ApiResponse<FindAllMemberResponse>> response = new ResponseEntity<>(apiResponse, HttpStatus.OK);
         return response;
     }
 
@@ -64,7 +65,7 @@ public class MemberController {
     public ResponseEntity<ApiResponse<UpdateMemberResponse>> updateResponse(@PathVariable Long memberId, @RequestBody UpdateRequest request) {
         UpdateMemberResponse updateMember = memberService.update(memberId, request);
         ApiResponse<UpdateMemberResponse> apiResponse = new ApiResponse<>("Success", 200, updateMember);
-        ResponseEntity<ApiResponse<UpdateMemberResponse>> response = ResponseEntity.ok(apiResponse);
+        ResponseEntity<ApiResponse<UpdateMemberResponse>> response = new ResponseEntity<>(apiResponse, HttpStatus.OK);
         return response;
     }
 
@@ -76,7 +77,7 @@ public class MemberController {
     public ResponseEntity<ApiResponse<DeleteMemberResponse>> deleteResponse(@PathVariable Long memberId) {
         DeleteMemberResponse updateMember = memberService.delete(memberId);
         ApiResponse<DeleteMemberResponse> apiResponse = new ApiResponse<>("Success", 200, updateMember);
-        ResponseEntity<ApiResponse<DeleteMemberResponse>> response = ResponseEntity.ok(apiResponse);
+        ResponseEntity<ApiResponse<DeleteMemberResponse>> response = new ResponseEntity<>(apiResponse, HttpStatus.OK);
         return response;
     }
 
