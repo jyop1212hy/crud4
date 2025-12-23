@@ -22,8 +22,7 @@ public class Member extends BaseTimeEntity {
 
 
     //JPA용 기본 생성자
-    public Member() {
-    }
+    public Member() {}
 
     public Member(String email, String name, String password) {
         this.email = email;

@@ -56,7 +56,9 @@ public class MemberService {
      */
     @Transactional
     public FindSingleMemberResponse findSingle(Long memberId) {
-        Member member = memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("아이디가 없습니다."));
+
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("아이디가 없습니다."));
 
         //데이터 추출
         Long findId = member.getId();
@@ -133,8 +135,9 @@ public class MemberService {
      */
     @Transactional
     public DeleteMemberResponse delete(Long memberId) {
+
+
         Member member = memberRepository.findByDeletedAtIsNull(memberId);
-//                .orElseThrow(() -> new IllegalArgumentException("아이디가 없습니다."));
 
         //데이터 추출
         Long savedUserId = member.getId();
