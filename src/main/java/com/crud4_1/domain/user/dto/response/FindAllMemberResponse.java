@@ -1,6 +1,6 @@
-package com.crud4_1.user.dto.response;
+package com.crud4_1.domain.user.dto.response;
 
-import com.crud4_1.user.dto.MemberDto;
+import com.crud4_1.domain.user.dto.MemberDto;
 
 import java.util.List;
 

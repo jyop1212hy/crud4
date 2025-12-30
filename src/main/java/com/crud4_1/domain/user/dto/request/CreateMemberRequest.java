@@ -1,4 +1,4 @@
-package com.crud4_1.user.dto.request;
+package com.crud4_1.domain.user.dto.request;
 
 public class CreateMemberRequest {
 

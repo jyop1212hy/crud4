@@ -1,4 +1,4 @@
-package com.crud4_1.common;
+package com.crud4_1.common.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

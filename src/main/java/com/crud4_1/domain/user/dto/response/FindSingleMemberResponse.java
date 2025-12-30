@@ -1,21 +1,19 @@
-package com.crud4_1.user.dto.response;
+package com.crud4_1.domain.user.dto.response;
 
 import java.time.LocalDateTime;
 
-public class UpdateMemberResponse {
+public class FindSingleMemberResponse {
 
     private final Long id;
     private final String email;
     private final String name;
     private final LocalDateTime createdAt;
-    private final LocalDateTime updatedAt;
 
-    public UpdateMemberResponse(Long id, String email, String name, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public FindSingleMemberResponse(Long id, String email, String name, LocalDateTime createdAt) {
         this.id = id;
         this.email = email;
         this.name = name;
         this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
     }
 
     public Long getId() {
@@ -32,9 +30,5 @@ public class UpdateMemberResponse {
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
     }
 }

@@ -1,16 +1,16 @@
-package com.crud4_1.user.service;
+package com.crud4_1.domain.user.service;
 
-import com.crud4_1.user.dto.response.DeleteMemberResponse;
-import com.crud4_1.user.dto.request.UpdateRequest;
-import com.crud4_1.user.dto.response.UpdateMemberResponse;
-import com.crud4_1.user.dto.response.FindAllMemberResponse;
-import com.crud4_1.user.dto.response.FindSingleMemberResponse;
-import com.crud4_1.user.dto.request.CreateMemberRequest;
-import com.crud4_1.user.dto.response.CreateMemberResponse;
+import com.crud4_1.domain.user.dto.response.DeleteMemberResponse;
+import com.crud4_1.domain.user.dto.request.UpdateRequest;
+import com.crud4_1.domain.user.dto.response.UpdateMemberResponse;
+import com.crud4_1.domain.user.dto.response.FindAllMemberResponse;
+import com.crud4_1.domain.user.dto.response.FindSingleMemberResponse;
+import com.crud4_1.domain.user.dto.request.CreateMemberRequest;
+import com.crud4_1.domain.user.dto.response.CreateMemberResponse;
 
-import com.crud4_1.user.dto.MemberDto;
-import com.crud4_1.user.entity.Member;
-import com.crud4_1.user.repository.MemberRepository;
+import com.crud4_1.domain.user.dto.MemberDto;
+import com.crud4_1.domain.user.entity.Member;
+import com.crud4_1.domain.user.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 

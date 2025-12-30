@@ -1,4 +1,4 @@
-package com.crud4_1.user.dto.response;
+package com.crud4_1.domain.user.dto.response;
 
 public class DeleteMemberResponse {
 

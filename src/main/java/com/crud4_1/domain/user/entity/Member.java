@@ -1,6 +1,6 @@
-package com.crud4_1.user.entity;
+package com.crud4_1.domain.user.entity;
 
-import com.crud4_1.common.BaseTimeEntity;
+import com.crud4_1.common.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 
 @Entity
